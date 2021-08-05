@@ -1,14 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using System.IO.Compression;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace Minecraft_Backup_Manager
 {
@@ -21,79 +15,83 @@ namespace Minecraft_Backup_Manager
 
         private void txtBackupName_TextChanged(object sender, EventArgs e)
         {
-            if (txtBackupName.Text != "")
-            {
-                cmbPlatform.Enabled = true;
-            }
+            CheckIfReady();
         }
 
         private void cmbPlatform_SelectedValueChanged(object sender, EventArgs e)
         {
-            if (cmbPlatform.SelectedItem.ToString() != "")
+            string selectedItemString = cmbPlatform.SelectedItem.ToString();
+            if (selectedItemString != "")
             {
-                if (cmbPlatform.SelectedItem.ToString() == "Bedrock")
+                if (selectedItemString == "Bedrock")
                 {
                     txtSavesLocation.Text = Properties.Settings.Default.BedrockSavesLocation;
+                    LoadSaves();
                 }
-                else
+                else if (selectedItemString == "Java")
                 {
                     txtSavesLocation.Text = Properties.Settings.Default.JavaSavesLocation;
+                    LoadSaves();
                 }
-
-                txtSavesLocation.Enabled = true;
-                btnChangeSavesLocation.Enabled = true;
-
-                LoadSaves();
             }
+
+            CheckIfReady();
         }
 
         private void txtSavesLocation_TextChanged(object sender, EventArgs e)
         {
-            if (txtSavesLocation.Text != "")
-            {
-                txtBackupLocation.Text = Properties.Settings.Default.BackupLocation;
-                txtBackupLocation.Enabled = true;
-                btnChangeBackupLocation.Enabled = true;
-            }
+            CheckIfReady();
         }
 
         private void txtBackupLocation_TextChanged(object sender, EventArgs e)
         {
-            if (txtBackupLocation.Text != "")
-            {
-                btnEnter.Enabled = true;
-                cblSaves.Enabled = true;
-            }
+            CheckIfReady();
         }
 
         private void btnEnter_Click(object sender, EventArgs e)
         {
-            if (cblSaves.Items.Count != cblSaves.CheckedItems.Count)
+            if (cmbPlatform.Text != "Java" && cmbPlatform.Text != "Bedrock")
             {
-                string[] checkedSaves = cblSaves.CheckedItems.OfType<string>().ToArray();
-                BackupSaves(txtBackupName.Text, cmbPlatform.SelectedItem.ToString(), txtSavesLocation.Text, txtBackupLocation.Text, checkedSaves);
+                MessageBox.Show("Platform is invalid, must be 'Java' or 'Bedrock'.");
+            }
+            else if (txtBackupName.Text.Contains('-'))
+            {
+                MessageBox.Show("The backup name cannot contain a '-'.");
             }
             else
             {
-                BackupSaves(txtBackupName.Text, cmbPlatform.SelectedItem.ToString(), txtSavesLocation.Text, txtBackupLocation.Text);
-            }
+                //Are all items ticked?
+                if (cblSaves.Items.Count != cblSaves.CheckedItems.Count)
+                {
+                    //No
+                    string[] checkedSaves = cblSaves.CheckedItems.OfType<string>().ToArray();
+                    BackupSaves(txtBackupName.Text, cmbPlatform.SelectedItem.ToString(), txtSavesLocation.Text, txtBackupLocation.Text, checkedSaves);
+                }
+                else
+                {
+                    //Yes
+                    BackupSaves(txtBackupName.Text, cmbPlatform.SelectedItem.ToString(), txtSavesLocation.Text, txtBackupLocation.Text);
+                }
 
-            
-            DialogResult = DialogResult.OK;
+                DialogResult = DialogResult.OK;
+            }
         }
 
-        private bool BackupSaves(string backupName, string platformType, string savesLocation, string backupLocation, string[] savesToBackup = null)
+        private void BackupSaves(string backupName, string platformType, string savesLocation, string backupLocation, string[] savesToBackup = null)
         {
             string timeDate = DateTime.Now.ToString("MM;dd;yyyy#HH;mm");
             string zipFileName = backupName + "-" + timeDate + "-" + platformType + "-MCBackup.zip";
             string zipFileLocation = backupLocation + "/" + zipFileName;
 
+            //Backing up all saves in folder?
             if (savesToBackup == null)
             {
+                //Yes
                 ZipFile.CreateFromDirectory(savesLocation, zipFileLocation);
             }
             else
             {
+                //No
                 if (platformType == "Java")
                 {
                     string[] foldersInFolder = Directory.GetDirectories(savesLocation);
@@ -107,7 +105,8 @@ namespace Minecraft_Backup_Manager
                     }
 
                     ZipFile.CreateFromDirectory(backupLocation + "/temp/", zipFileLocation);
-                }else if (platformType == "Bedrock")
+                }
+                else if (platformType == "Bedrock")
                 {
                     string[] foldersInFolder = Directory.GetDirectories(savesLocation);
                     foreach (string folder in foldersInFolder)
@@ -122,10 +121,6 @@ namespace Minecraft_Backup_Manager
                     ZipFile.CreateFromDirectory(backupLocation + "/temp/", zipFileLocation);
                 }
             }
-
-            
-
-            return true;
         }
 
         private static void CopyFilesRecursively(string sourcePath, string targetPath)
@@ -150,14 +145,18 @@ namespace Minecraft_Backup_Manager
 
         private void btnChangeSavesLocation_Click(object sender, EventArgs e)
         {
-            fbdSavesLocation.ShowDialog();
-            txtSavesLocation.Text = fbdSavesLocation.SelectedPath;
+            if (fbdSavesLocation.ShowDialog() == DialogResult.OK)
+            {
+                txtSavesLocation.Text = fbdSavesLocation.SelectedPath;
+            }
         }
 
         private void btnChangeBackupLocation_Click(object sender, EventArgs e)
         {
-            fbdBackupLocation.ShowDialog();
-            txtBackupLocation.Text = fbdBackupLocation.SelectedPath;
+            if (fbdBackupLocation.ShowDialog() == DialogResult.OK)
+            {
+                txtBackupLocation.Text = fbdBackupLocation.SelectedPath;
+            }
         }
 
         private void LoadSaves()
@@ -173,7 +172,7 @@ namespace Minecraft_Backup_Manager
                     cblSaves.Items.Add(Path.GetFileName(folder), true);
                 }
             }
-            else
+            else if (cmbPlatform.SelectedItem.ToString() == "Bedrock")
             {
                 string[] foldersInFolder = Directory.GetDirectories(savesLocation);
                 cblSaves.Items.Clear();
@@ -183,6 +182,35 @@ namespace Minecraft_Backup_Manager
                     cblSaves.Items.Add(worldName, true);
                 }
             }
+        }
+
+        private void frmNewBackup_Load(object sender, EventArgs e)
+        {
+            txtBackupLocation.Text = Properties.Settings.Default.BackupLocation;
+        }
+
+        private void CheckIfReady()
+        {
+            bool isReady = true;
+
+            if (txtBackupName.Text == "")
+            {
+                isReady = false;
+            }
+            else if (cmbPlatform.Text == "")
+            {
+                isReady = false;
+            }
+            else if (txtSavesLocation.Text == "")
+            {
+                isReady = false;
+            }
+            else if (txtBackupLocation.Text == "")
+            {
+                isReady = false;
+            }
+
+            btnEnter.Enabled = isReady;
         }
     }
 }

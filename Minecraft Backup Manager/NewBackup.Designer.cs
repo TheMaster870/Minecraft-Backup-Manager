@@ -49,7 +49,6 @@ namespace Minecraft_Backup_Manager
             // 
             // cmbPlatform
             // 
-            this.cmbPlatform.Enabled = false;
             this.cmbPlatform.FormattingEnabled = true;
             this.cmbPlatform.Items.AddRange(new object[] {
             "Java",
@@ -57,7 +56,7 @@ namespace Minecraft_Backup_Manager
             this.cmbPlatform.Location = new System.Drawing.Point(118, 64);
             this.cmbPlatform.Name = "cmbPlatform";
             this.cmbPlatform.Size = new System.Drawing.Size(121, 21);
-            this.cmbPlatform.TabIndex = 0;
+            this.cmbPlatform.TabIndex = 1;
             this.cmbPlatform.SelectedValueChanged += new System.EventHandler(this.cmbPlatform_SelectedValueChanged);
             // 
             // label1
@@ -80,20 +79,18 @@ namespace Minecraft_Backup_Manager
             // 
             // txtSavesLocation
             // 
-            this.txtSavesLocation.Enabled = false;
             this.txtSavesLocation.Location = new System.Drawing.Point(118, 97);
             this.txtSavesLocation.Name = "txtSavesLocation";
             this.txtSavesLocation.Size = new System.Drawing.Size(297, 20);
-            this.txtSavesLocation.TabIndex = 3;
+            this.txtSavesLocation.TabIndex = 2;
             this.txtSavesLocation.TextChanged += new System.EventHandler(this.txtSavesLocation_TextChanged);
             // 
             // btnChangeSavesLocation
             // 
-            this.btnChangeSavesLocation.Enabled = false;
             this.btnChangeSavesLocation.Location = new System.Drawing.Point(421, 94);
             this.btnChangeSavesLocation.Name = "btnChangeSavesLocation";
             this.btnChangeSavesLocation.Size = new System.Drawing.Size(25, 25);
-            this.btnChangeSavesLocation.TabIndex = 4;
+            this.btnChangeSavesLocation.TabIndex = 3;
             this.btnChangeSavesLocation.Text = "...";
             this.btnChangeSavesLocation.UseVisualStyleBackColor = true;
             this.btnChangeSavesLocation.Click += new System.EventHandler(this.btnChangeSavesLocation_Click);
@@ -105,7 +102,7 @@ namespace Minecraft_Backup_Manager
             this.btnEnter.Location = new System.Drawing.Point(405, 442);
             this.btnEnter.Name = "btnEnter";
             this.btnEnter.Size = new System.Drawing.Size(106, 23);
-            this.btnEnter.TabIndex = 5;
+            this.btnEnter.TabIndex = 7;
             this.btnEnter.Text = "Start Backup";
             this.btnEnter.UseVisualStyleBackColor = true;
             this.btnEnter.Click += new System.EventHandler(this.btnEnter_Click);
@@ -116,19 +113,18 @@ namespace Minecraft_Backup_Manager
             this.btnCancel.Location = new System.Drawing.Point(12, 442);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(106, 23);
-            this.btnCancel.TabIndex = 6;
+            this.btnCancel.TabIndex = 8;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // cblSaves
             // 
-            this.cblSaves.Enabled = false;
             this.cblSaves.FormattingEnabled = true;
             this.cblSaves.Location = new System.Drawing.Point(118, 167);
             this.cblSaves.Name = "cblSaves";
             this.cblSaves.Size = new System.Drawing.Size(267, 259);
-            this.cblSaves.TabIndex = 7;
+            this.cblSaves.TabIndex = 6;
             // 
             // label3
             // 
@@ -144,7 +140,7 @@ namespace Minecraft_Backup_Manager
             this.txtBackupName.Location = new System.Drawing.Point(118, 31);
             this.txtBackupName.Name = "txtBackupName";
             this.txtBackupName.Size = new System.Drawing.Size(297, 20);
-            this.txtBackupName.TabIndex = 9;
+            this.txtBackupName.TabIndex = 0;
             this.txtBackupName.TextChanged += new System.EventHandler(this.txtBackupName_TextChanged);
             // 
             // label4
@@ -158,20 +154,18 @@ namespace Minecraft_Backup_Manager
             // 
             // txtBackupLocation
             // 
-            this.txtBackupLocation.Enabled = false;
             this.txtBackupLocation.Location = new System.Drawing.Point(118, 130);
             this.txtBackupLocation.Name = "txtBackupLocation";
             this.txtBackupLocation.Size = new System.Drawing.Size(297, 20);
-            this.txtBackupLocation.TabIndex = 11;
+            this.txtBackupLocation.TabIndex = 4;
             this.txtBackupLocation.TextChanged += new System.EventHandler(this.txtBackupLocation_TextChanged);
             // 
             // btnChangeBackupLocation
             // 
-            this.btnChangeBackupLocation.Enabled = false;
             this.btnChangeBackupLocation.Location = new System.Drawing.Point(421, 127);
             this.btnChangeBackupLocation.Name = "btnChangeBackupLocation";
             this.btnChangeBackupLocation.Size = new System.Drawing.Size(25, 25);
-            this.btnChangeBackupLocation.TabIndex = 12;
+            this.btnChangeBackupLocation.TabIndex = 5;
             this.btnChangeBackupLocation.Text = "...";
             this.btnChangeBackupLocation.UseVisualStyleBackColor = true;
             this.btnChangeBackupLocation.Click += new System.EventHandler(this.btnChangeBackupLocation_Click);
@@ -210,6 +204,7 @@ namespace Minecraft_Backup_Manager
             this.Name = "frmNewBackup";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "New Backup";
+            this.Load += new System.EventHandler(this.frmNewBackup_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
