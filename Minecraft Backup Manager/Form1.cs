@@ -235,7 +235,12 @@ namespace Minecraft_Backup_Manager
 
         private void mtiHelp_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("You work it out.");
+            MessageBox.Show("Click New Backup and create one. It's pretty obvious.");
+        }
+
+        private void btnRefresh_Click(object sender, EventArgs e)
+        {
+            RefreshBackupList();
         }
     }
 }

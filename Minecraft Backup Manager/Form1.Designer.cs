@@ -40,8 +40,6 @@ namespace Minecraft_Backup_Manager
             this.mtiHelp = new System.Windows.Forms.ToolStripMenuItem();
             this.mtiVersion = new System.Windows.Forms.ToolStripMenuItem();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.btnOptions = new System.Windows.Forms.Button();
-            this.lblDataGridViewMessage = new System.Windows.Forms.Label();
             this.filePath = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.BackupName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.BackupDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -49,6 +47,9 @@ namespace Minecraft_Backup_Manager
             this.EditBackup = new System.Windows.Forms.DataGridViewButtonColumn();
             this.DeleteBackup = new System.Windows.Forms.DataGridViewButtonColumn();
             this.OpenBackup = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.btnOptions = new System.Windows.Forms.Button();
+            this.lblDataGridViewMessage = new System.Windows.Forms.Label();
+            this.btnRefresh = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
@@ -158,28 +159,6 @@ namespace Minecraft_Backup_Manager
             this.dataGridView1.TabIndex = 2;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
-            // btnOptions
-            // 
-            this.btnOptions.Location = new System.Drawing.Point(12, 70);
-            this.btnOptions.Name = "btnOptions";
-            this.btnOptions.Size = new System.Drawing.Size(101, 23);
-            this.btnOptions.TabIndex = 3;
-            this.btnOptions.Text = "Options";
-            this.btnOptions.UseVisualStyleBackColor = true;
-            this.btnOptions.Click += new System.EventHandler(this.btnOptions_Click);
-            // 
-            // lblDataGridViewMessage
-            // 
-            this.lblDataGridViewMessage.BackColor = System.Drawing.Color.DarkGray;
-            this.lblDataGridViewMessage.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDataGridViewMessage.Location = new System.Drawing.Point(171, 85);
-            this.lblDataGridViewMessage.Name = "lblDataGridViewMessage";
-            this.lblDataGridViewMessage.Size = new System.Drawing.Size(804, 57);
-            this.lblDataGridViewMessage.TabIndex = 4;
-            this.lblDataGridViewMessage.Text = "No backups found in folder: ";
-            this.lblDataGridViewMessage.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.lblDataGridViewMessage.Visible = false;
-            // 
             // filePath
             // 
             this.filePath.HeaderText = "File Path";
@@ -237,11 +216,44 @@ namespace Minecraft_Backup_Manager
             this.OpenBackup.Text = "Open Backup";
             this.OpenBackup.UseColumnTextForButtonValue = true;
             // 
+            // btnOptions
+            // 
+            this.btnOptions.Location = new System.Drawing.Point(12, 99);
+            this.btnOptions.Name = "btnOptions";
+            this.btnOptions.Size = new System.Drawing.Size(101, 23);
+            this.btnOptions.TabIndex = 3;
+            this.btnOptions.Text = "Options";
+            this.btnOptions.UseVisualStyleBackColor = true;
+            this.btnOptions.Click += new System.EventHandler(this.btnOptions_Click);
+            // 
+            // lblDataGridViewMessage
+            // 
+            this.lblDataGridViewMessage.BackColor = System.Drawing.Color.DarkGray;
+            this.lblDataGridViewMessage.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDataGridViewMessage.Location = new System.Drawing.Point(171, 85);
+            this.lblDataGridViewMessage.Name = "lblDataGridViewMessage";
+            this.lblDataGridViewMessage.Size = new System.Drawing.Size(804, 57);
+            this.lblDataGridViewMessage.TabIndex = 4;
+            this.lblDataGridViewMessage.Text = "No backups found in folder: ";
+            this.lblDataGridViewMessage.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblDataGridViewMessage.Visible = false;
+            // 
+            // btnRefresh
+            // 
+            this.btnRefresh.Location = new System.Drawing.Point(12, 70);
+            this.btnRefresh.Name = "btnRefresh";
+            this.btnRefresh.Size = new System.Drawing.Size(101, 23);
+            this.btnRefresh.TabIndex = 5;
+            this.btnRefresh.Text = "Refresh List";
+            this.btnRefresh.UseVisualStyleBackColor = true;
+            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1025, 607);
+            this.Controls.Add(this.btnRefresh);
             this.Controls.Add(this.lblDataGridViewMessage);
             this.Controls.Add(this.btnOptions);
             this.Controls.Add(this.dataGridView1);
@@ -282,6 +294,7 @@ namespace Minecraft_Backup_Manager
         private System.Windows.Forms.DataGridViewButtonColumn EditBackup;
         private System.Windows.Forms.DataGridViewButtonColumn DeleteBackup;
         private System.Windows.Forms.DataGridViewButtonColumn OpenBackup;
+        private System.Windows.Forms.Button btnRefresh;
     }
 }
 

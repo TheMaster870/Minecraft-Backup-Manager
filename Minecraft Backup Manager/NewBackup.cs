@@ -64,13 +64,21 @@ namespace Minecraft_Backup_Manager
                 if (cblSaves.Items.Count != cblSaves.CheckedItems.Count)
                 {
                     //No
+                    CreatingBackup creatingBackup = new CreatingBackup();
+                    creatingBackup.Show();
                     string[] checkedSaves = cblSaves.CheckedItems.OfType<string>().ToArray();
                     BackupSaves(txtBackupName.Text, cmbPlatform.SelectedItem.ToString(), txtSavesLocation.Text, txtBackupLocation.Text, checkedSaves);
+                    creatingBackup.allowClose = true;
+                    creatingBackup.Close();
                 }
                 else
                 {
                     //Yes
+                    CreatingBackup creatingBackup = new CreatingBackup();
+                    creatingBackup.Show();
                     BackupSaves(txtBackupName.Text, cmbPlatform.SelectedItem.ToString(), txtSavesLocation.Text, txtBackupLocation.Text);
+                    creatingBackup.allowClose = true;
+                    creatingBackup.Close();
                 }
 
                 DialogResult = DialogResult.OK;
@@ -105,6 +113,7 @@ namespace Minecraft_Backup_Manager
                     }
 
                     ZipFile.CreateFromDirectory(backupLocation + "/temp/", zipFileLocation);
+                    Directory.Delete(backupLocation + "/temp/", true);
                 }
                 else if (platformType == "Bedrock")
                 {
@@ -119,6 +128,7 @@ namespace Minecraft_Backup_Manager
                     }
 
                     ZipFile.CreateFromDirectory(backupLocation + "/temp/", zipFileLocation);
+                    Directory.Delete(backupLocation + "/temp/");
                 }
             }
         }
