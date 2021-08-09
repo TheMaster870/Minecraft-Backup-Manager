@@ -12,4 +12,8 @@ A good idea is to choose OneDrive or Dropbox sync folder if you have it or somew
 5. Click New Backup
 6. Choose a name, the platform (Java or Bedrock), check the saves and backup location and choose the saves to backup.
 7. Click Start Backup
-Note: In the current build it will hang while backing up, so please be patient.
+Note: In the current build it will hang while backing up, so please be patient, it is working.
+
+
+Features in development:
+A backup scheduler to automate backing up saves
